@@ -14,24 +14,29 @@ jobs:
 
     steps:
 
+      # Step 1: Checkout repository
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      # Step 2: Setup Python
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.10"
 
+      # Step 3: Install Python Dependencies
       - name: Install Dependencies
         run: |
-          pip install coverage
+          pip install coverage fastapi uvicorn
 
+      # Step 4: Run Unit Tests with Coverage
       - name: Run Unit Tests with Coverage
         run: |
           coverage run -m unittest discover -s src -p "test_*.py"
           coverage xml
 
+      # Step 5: SonarQube Scan
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         with:
@@ -43,15 +48,18 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+      # Step 6: Build Docker Image
       - name: Build Docker Image
         run: |
           docker build -t myapp:latest .
 
+      # Step 7: Run Docker Container (FastAPI)
       - name: Run Docker Container
         run: |
           docker run -d -p 8000:8000 --name myapp_container myapp:latest
           sleep 10
 
+      # Step 8: OWASP ZAP Baseline Scan
       - name: OWASP ZAP Baseline Scan
         run: |
           mkdir -p zap
@@ -63,12 +71,14 @@ jobs:
             -t http://localhost:8000 \
             -r zap_report.html || true
 
+      # Step 9: Upload OWASP ZAP Report
       - name: Upload ZAP Report
         uses: actions/upload-artifact@v4
         with:
           name: zap_report
           path: zap/zap_report.html
 
+      # Step 10: Stop Docker Container
       - name: Stop Container
         run: |
           docker stop myapp_container
