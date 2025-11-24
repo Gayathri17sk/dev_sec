@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from typing import Union
 
 # ----------------- Calculator Functions -----------------
 
@@ -45,7 +44,7 @@ def api_multiply(a: float, b: float):
 def api_divide(a: float, b: float):
     return {"result": divide(a, b)}
 
-# ----------------- CLI Calculator (Optional) -----------------
+# ----------------- CLI Calculator -----------------
 
 def calculator():
     print("Simple Python Calculator")
@@ -65,6 +64,5 @@ def calculator():
     else:
         print("Invalid operation!")
 
-# Run CLI only when executed directly
 if __name__ == "__main__":
     calculator()
