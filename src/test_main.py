@@ -1,4 +1,4 @@
-# tests/test_calculator.py
+# src/test_main.py
 import unittest
 from src.calculator import add, subtract, multiply, divide
 
@@ -54,6 +54,7 @@ class TestCalculator(unittest.TestCase):
     def test_divide_floats(self):
         self.assertAlmostEqual(divide(2.5, 0.5), 5.0)
         self.assertAlmostEqual(divide(-2.5, 0.5), -5.0)
+
 
 if __name__ == "__main__":
     unittest.main()
