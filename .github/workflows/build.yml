@@ -41,7 +41,7 @@ jobs:
         with:
           args: >
             -Dsonar.projectKey=Gayathri17sk_dev_sec
-            -Dsonar.organization=
+            -Dsonar.organization=gayathri17sk
             -Dsonar.sources=src
             -Dsonar.python.coverage.reportPaths=coverage.xml
         env:
