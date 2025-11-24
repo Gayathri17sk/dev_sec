@@ -32,17 +32,16 @@ jobs:
       # Step 4: Run Unit Tests with Coverage
       - name: Run Unit Tests with Coverage
         run: |
-          coverage run -m unittest discover -s src -p "test_*.py"
+          PYTHONPATH=src coverage run -m unittest discover -s src -p "test_*.py"
           coverage xml
 
       # Step 5: SonarQube Scan
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         with:
-          args: >
-            -Dsonar.projectKey=Gayathri17sk_dev_sec
-            -Dsonar.organization=gayathri17sk
-            -Dsonar.sources=src
-            -Dsonar.python.coverage.reportPaths=coverage.xml
+          projectKey: Gayathri17sk_dev_sec
+          organization: gayathri17sk
+          sources: src
+          coverageReportPaths: coverage.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
