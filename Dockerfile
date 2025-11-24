@@ -14,5 +14,5 @@ COPY src/ ./src
 # Set environment variable to avoid Python buffering output
 ENV PYTHONUNBUFFERED=1
 
-# Default command: run tests with coverage
-CMD ["bash", "-c", "PYTHONPATH=src coverage run -m unittest discover -s src -p 'test_*.py' && coverage report"]
+# Run FastAPI server
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
