@@ -1,4 +1,3 @@
-
 name: Build
 
 on:
@@ -40,9 +39,11 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@v6
         with:
-          projectKey: Gayathri17sk_dev_sec
-          organization: gayathri17sk
-          sources: src
-          coverageReportPaths: coverage.xml
+          args: >
+            -Dsonar.projectKey=Gayathri17sk_dev_sec
+            -Dsonar.organization=gayathri17sk
+            -Dsonar.sources=src
+            -Dsonar.python.coverage.reportPaths=coverage.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
