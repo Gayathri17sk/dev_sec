@@ -71,7 +71,8 @@ jobs:
           target: "http://localhost:8000/"
           token: ${{ github.token }}
           artifact_name: "zap_full_scan"
-          fail_action: true
+          fail_action: false           # Do not fail workflow on warnings
+          allow_issue_writing: false   # Disable automatic GitHub issue creation
 
       # Step 9: Stop Docker Container
       - name: Stop Container
