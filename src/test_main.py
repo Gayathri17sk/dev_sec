@@ -1,7 +1,6 @@
-# src/test_main.py
-
 import unittest
-from main import add, subtract, multiply, divide
+from unittest.mock import patch
+from main import add, subtract, multiply, divide, calculator
 
 class TestCalculator(unittest.TestCase):
 
@@ -35,6 +34,43 @@ class TestCalculator(unittest.TestCase):
     def test_divide_by_zero(self):
         self.assertEqual(divide(5, 0), "Error: Cannot divide by zero!")
         self.assertEqual(divide(0, 0), "Error: Cannot divide by zero!")
+
+    # ------------------- FULL CALCULATOR INTERACTIVE TEST -------------------
+    @patch('builtins.input', side_effect=['10', '5', '+'])
+    @patch('builtins.print')
+    def test_calculator_add(self, mock_print, mock_input):
+        calculator()
+        mock_print.assert_any_call(15)
+
+    @patch('builtins.input', side_effect=['10', '5', '-'])
+    @patch('builtins.print')
+    def test_calculator_subtract(self, mock_print, mock_input):
+        calculator()
+        mock_print.assert_any_call(5)
+
+    @patch('builtins.input', side_effect=['10', '5', '*'])
+    @patch('builtins.print')
+    def test_calculator_multiply(self, mock_print, mock_input):
+        calculator()
+        mock_print.assert_any_call(50)
+
+    @patch('builtins.input', side_effect=['10', '5', '/'])
+    @patch('builtins.print')
+    def test_calculator_divide(self, mock_print, mock_input):
+        calculator()
+        mock_print.assert_any_call(2.0)
+
+    @patch('builtins.input', side_effect=['10', '0', '/'])
+    @patch('builtins.print')
+    def test_calculator_divide_by_zero(self, mock_print, mock_input):
+        calculator()
+        mock_print.assert_any_call("Error: Cannot divide by zero!")
+
+    @patch('builtins.input', side_effect=['10', '5', '^'])
+    @patch('builtins.print')
+    def test_calculator_invalid_op(self, mock_print, mock_input):
+        calculator()
+        mock_print.assert_any_call("Invalid operation!")
 
 if __name__ == "__main__":
     unittest.main()
