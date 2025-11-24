@@ -1,3 +1,5 @@
+# src/main.py
+
 def add(a, b):
     return a + b
 
@@ -15,27 +17,21 @@ def divide(a, b):
 def calculator():
     print("Simple Python Calculator")
     print("Operations: +  -  *  /")
-    
-    try:
-        num1 = float(input("Enter first number: "))
-        op = input("Enter operator (+, -, *, /): ")
-        num2 = float(input("Enter second number: "))
-    except ValueError:
-        print("Invalid input! Please enter numbers only.")
-        return
-    
+    a = float(input("Enter first number: "))
+    b = float(input("Enter second number: "))
+    op = input("Enter operation (+, -, *, /): ")
+
     if op == "+":
-        result = add(num1, num2)
+        print(add(a, b))
     elif op == "-":
-        result = subtract(num1, num2)
+        print(subtract(a, b))
     elif op == "*":
-        result = multiply(num1, num2)
+        print(multiply(a, b))
     elif op == "/":
-        result = divide(num1, num2)
+        print(divide(a, b))
     else:
-        result = "Invalid operator!"
+        print("Invalid operation!")
 
-    print("Result:", result)
-
-# Run the calculator
-calculator()
+# Only run interactive code when executed directly
+if __name__ == "__main__":
+    calculator()
